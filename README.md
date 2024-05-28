@@ -1,10 +1,8 @@
 ﻿# Color-Palette-Generator
 
- A color palette generator using LSTM model trained with approximately 14k colors training data. This web application can generate color based on user input text as well as hex values and RGB values
+ A color palette generator using LSTM model trained with approximately 14k colors training data. This web application can generate color based on user input text as well as hex and RGB values or generate a color palette randomly.
 
 Preview
 
-![image](https://github.com/Jason-Ereso/Color-Palette-Generator/assets/160806078/1c36c9a2-1f10-4b9e-9e82-558849f99ba3)
-
-![image](https://github.com/Jason-Ereso/Color-Palette-Generator/assets/160806078/33f096b9-5cc8-4045-807c-a9f3458130a2)
+https://github.com/Jason-Ereso/Color-Palette-Generator/assets/160806078/a4e17dff-6b86-4ba5-a059-e8b82532a2b6
 
