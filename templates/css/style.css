@@ -19,6 +19,7 @@ body {
 
 
 .container {
+    position: relative;
     max-width: 600px;
     margin: 0 auto;
     background-color: #fff;
@@ -26,6 +27,23 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
+}
+
+.github-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-decoration: none;
+}
+
+.github-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.3s ease;
+}
+
+.github-icon:hover {
+    transform: scale(1.4);
 }
 
 h1 {
@@ -49,32 +67,35 @@ input[type="text"] {
     line-height: 24px;
 }
 
-/* button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-} */
-
 #palette {
     margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 20px;
+    border: 1px #2d2d2d;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(219, 219, 219, 0.5);
+    box-shadow: 0 4px 8px rgba(12, 3, 3, 0.1);
 }
 
 .color-swatch {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     margin: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.color-swatch:hover {
+    transform: scale(1.4);
 }
 
 #count {
@@ -116,9 +137,10 @@ button:hover {
 
 .bn632-hover.bn24 {
     background-image: linear-gradient(to right,
-            #6253e1,
-            #852d91,
-            #a3a1ff,
-            #f24645);
+            #30b8d4,
+            #d44c30,
+            #3066d4,
+            #30d49e,
+            #ffdf4b);
     box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);
 }

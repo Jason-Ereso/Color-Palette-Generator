@@ -52,25 +52,60 @@ function generatePaletteFromRGB() {
     });
 }
 
+function rgbToHex(r, g, b) {
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.slice(1), 16);
+    return [(bigint >> 16) & 255, (bigint >> 8) & 255, bigint & 255];
+}
+
+async function generatePaletteFromRGBValues(rgb) {
+    try {
+        const response = await fetch('/color_palette', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ color_value: `${rgb[0]},${rgb[1]},${rgb[2]}` })
+        });
+        const colors = await response.json();
+        displayPalette(colors);
+        changeBackgroundColor(colors.original);
+    } catch (error) {
+        console.error('Error generating palette:', error);
+    }
+}
+
+function generateRandomPalette() {
+    const randomColor = getRandomColor();
+    generatePaletteFromRGBValues(randomColor);
+}
+
+function getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    return [r, g, b];
+}
+
 function displayPalette(data) {
     const paletteDiv = document.getElementById('palette');
     paletteDiv.innerHTML = '';
 
     const colorTypes = ['original', 'complementary', 'analogous', 'triadic', 'tetradic', 'monochromatic'];
     colorTypes.forEach(type => {
-        if (Array.isArray(data[type][0])) {
-            data[type].forEach(color => {
-                const colorSwatch = document.createElement('div');
-                colorSwatch.className = 'color-swatch';
-                colorSwatch.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-                paletteDiv.appendChild(colorSwatch);
-            });
-        } else {
+        const colors = Array.isArray(data[type][0]) ? data[type] : [data[type]];
+        colors.forEach(color => {
             const colorSwatch = document.createElement('div');
             colorSwatch.className = 'color-swatch';
-            colorSwatch.style.backgroundColor = `rgb(${data[type][0]}, ${data[type][1]}, ${data[type][2]})`;
+            const rgbColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+            const hexColor = rgbToHex(color[0], color[1], color[2]);
+            colorSwatch.style.backgroundColor = rgbColor;
+            colorSwatch.textContent = hexColor; // Display hex value inside color swatch
             paletteDiv.appendChild(colorSwatch);
-        }
+        });
     });
 }
 
