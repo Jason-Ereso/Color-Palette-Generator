@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import Dense, Dropout, LSTM, Reshape
@@ -8,6 +9,7 @@ import pandas as pd
 import colorsys
 
 app = Flask(__name__, static_folder='templates')
+CORS(app)
 
 # Load model with custom objects
 # model = load_model('model.h5', custom_objects=custom_objects)
@@ -98,19 +100,38 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict_color():
-    name = request.form['name']
-    colors = predict(name)
-    return jsonify(colors)
+    try:
+        if request.is_json:
+            data = request.get_json()
+            name = data['name']
+        else:
+            data = request.form
+            name = data['name']
+        
+        colors = predict(name)
+        return jsonify(colors)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 @app.route('/color_palette', methods=['POST'])
 def color_palette():
-    color_value = request.form['color_value']
-    if color_value.startswith('#'):
-        rgb = rgb_from_hex(color_value)
-    else:
-        rgb = tuple(map(int, color_value.split(',')))
-    colors = generate_palette_from_rgb(rgb)
-    return jsonify(colors)
+    try:
+        if request.is_json:
+            data = request.get_json()
+            color_value = data['color_value']
+        else:
+            data = request.form
+            color_value = data['color_value']
+            
+        if color_value.startswith('#'):
+            rgb = rgb_from_hex(color_value)
+        else:
+            rgb = tuple(map(int, color_value.split(',')))
+        colors = generate_palette_from_rgb(rgb)
+        return jsonify(colors)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
