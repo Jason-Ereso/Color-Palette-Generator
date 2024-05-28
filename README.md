@@ -4,5 +4,6 @@
 
 Preview
 
-https://github.com/Jason-Ereso/Color-Palette-Generator/assets/160806078/a4e17dff-6b86-4ba5-a059-e8b82532a2b6
+https://github.com/Jason-Ereso/Color-Palette-Generator/assets/160806078/965f0b53-05c8-42c7-9a96-1a82b457fbf1
 
+For the browser extension version, you can visit https://github.com/Jason-Ereso/Color-Palette-Generator-browser-extension
